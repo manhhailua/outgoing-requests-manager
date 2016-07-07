@@ -7,8 +7,8 @@ module.exports = {
     todoapp: [customPath, path.join(__dirname, '../chrome/extension/todoapp')],
     background: [customPath, path.join(__dirname, '../chrome/extension/background')],
     inject: [customPath, path.join(__dirname, '../chrome/extension/inject')],
-    devtools: [customPath, hotScript, path.join(__dirname, '../chrome/extension/devtools')],
-    orm: [customPath, hotScript, path.join(__dirname, '../chrome/extension/orm')]
+    devtools: [customPath, path.join(__dirname, '../chrome/extension/devtools')],
+    orm: [customPath, path.join(__dirname, '../chrome/extension/orm')]
   },
   output: {
     path: path.join(__dirname, '../build/js'),
