@@ -1,0 +1,7 @@
+html, body {
+  font-size: 11px;
+}
+
+table#outgoing-requests {
+  max-width: 100%;
+}

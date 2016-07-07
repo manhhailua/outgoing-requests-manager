@@ -11,6 +11,9 @@ const baseDevConfig = () => ({
   entry: {
     todoapp: [customPath, hotScript, path.join(__dirname, '../chrome/extension/todoapp')],
     background: [customPath, hotScript, path.join(__dirname, '../chrome/extension/background')],
+    // inject: [customPath, path.join(__dirname, '../chrome/extension/inject')],
+    devtools: [customPath, hotScript, path.join(__dirname, '../chrome/extension/devtools')],
+    orm: [customPath, hotScript, path.join(__dirname, '../chrome/extension/orm')]
   },
   devMiddleware: {
     publicPath: `http://${host}:${port}/js`,
@@ -57,7 +60,10 @@ const baseDevConfig = () => ({
         'css?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
         'postcss'
       ]
-    }]
+    },
+      {test: /\.(woff2?|svg)$/, loader: 'url?limit=10000'},
+      {test: /\.(ttf|eot)$/, loader: 'file'},
+    ]
   }
 });
 
@@ -71,7 +77,7 @@ delete injectPageConfig.module.loaders[0].query;
 injectPageConfig.plugins.shift(); // remove HotModuleReplacementPlugin
 injectPageConfig.output = {
   path: path.join(__dirname, '../dev/js'),
-  filename: 'inject.bundle.js',
+  filename: 'inject.bundle.js'
 };
 const appConfig = baseDevConfig();
 
