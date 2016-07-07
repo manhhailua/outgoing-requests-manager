@@ -1,4 +1,4 @@
 String.prototype.truncate = function (length) {
   if (this.length <= length) return this;
-  return this.substring(0, length) + '...';
+  return this.toString().substring(0, length) + '...';
 };
