@@ -46,9 +46,10 @@ module.exports = {
         'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
         'postcss'
       ]
-    },
-      {test: /\.(woff2?|svg)$/, loader: 'url?limit=10000'},
-      {test: /\.(ttf|eot)$/, loader: 'file'},
-    ]
+    }, {
+      test: /\.(woff2?|svg)$/, loader: 'url?limit=10000'
+    }, {
+      test: /\.(ttf|eot)$/, loader: 'file'
+    }]
   }
 };

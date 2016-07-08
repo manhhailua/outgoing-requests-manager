@@ -1,6 +1,8 @@
 import React from 'react';
 
-import RequestsList from '../components/RequestsList';
+import Controllers from '../components/Controllers/Controllers';
+import RequestsList from '../components/RequestsList/RequestsList';
+import BlackList from '../components/BlackList/BlackList';
 
 import 'expose?$!expose?jQuery!jquery';
 import 'bootstrap-loader';
@@ -13,7 +15,11 @@ export default class AppORM extends React.Component {
 
   render() {
     return (
-      <RequestsList pool={this.props.pool}/>
+      <section>
+        <Controllers/>
+        <BlackList pool={this.props.blackListPool} poop="This is the shit"/>
+        {/*<RequestsList pool={this.props.pool}/>*/}
+      </section>
     );
   }
 }
