@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import classnames from 'classnames';
 import style from './TodoTextInput.css';
 
@@ -24,13 +24,13 @@ export default class TodoTextInput extends Component {
     if (evt.which === 13) {
       this.props.onSave(text);
       if (this.props.newTodo) {
-        this.setState({ text: '' });
+        this.setState({text: ''});
       }
     }
   };
 
   handleChange = evt => {
-    this.setState({ text: evt.target.value });
+    this.setState({text: evt.target.value});
   };
 
   handleBlur = evt => {

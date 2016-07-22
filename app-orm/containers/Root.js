@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {Provider} from 'react-redux';
-import App from './App';
+import AppORM from './App';
 
 export default class Root extends Component {
 
@@ -12,7 +12,11 @@ export default class Root extends Component {
     const {store} = this.props;
     return (
       <Provider store={store}>
-        <App />
+        <AppORM
+          pool={this.props.pool}
+          whiteListPool={this.props.whiteListPool}
+          blackListPool={this.props.blackListPool}
+        />
       </Provider>
     );
   }

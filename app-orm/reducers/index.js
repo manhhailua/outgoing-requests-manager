@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
-import requests from './requests';
+import domains from './domains';
 
 export default combineReducers({
-  requests
+  domains
 });

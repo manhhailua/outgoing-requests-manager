@@ -1,2 +1,3 @@
-export const ADD_REQUEST = 'ADD_REQUEST';
-export const CLEAR_REQUESTS = 'CLEAR_REQUESTS';
+export const ADD_DOMAIN = 'ADD_DOMAIN';
+export const DELETE_DOMAIN = 'DELETE_DOMAIN';
+export const CLEAR_DOMAINS = 'CLEAR_DOMAINS';

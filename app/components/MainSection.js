@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import TodoItem from './TodoItem';
 import Footer from './Footer';
-import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters';
+import {SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE} from '../constants/TodoFilters';
 import style from './MainSection.css';
 
 const TODO_FILTERS = {
@@ -19,7 +19,7 @@ export default class MainSection extends Component {
 
   constructor(props, context) {
     super(props, context);
-    this.state = { filter: SHOW_ALL };
+    this.state = {filter: SHOW_ALL};
   }
 
   handleClearCompleted = () => {
@@ -30,11 +30,11 @@ export default class MainSection extends Component {
   };
 
   handleShow = filter => {
-    this.setState({ filter });
+    this.setState({filter});
   };
 
   renderToggleAll(completedCount) {
-    const { todos, actions } = this.props;
+    const {todos, actions} = this.props;
     if (todos.length > 0) {
       return (
         <input
@@ -48,8 +48,8 @@ export default class MainSection extends Component {
   }
 
   renderFooter(completedCount) {
-    const { todos } = this.props;
-    const { filter } = this.state;
+    const {todos} = this.props;
+    const {filter} = this.state;
     const activeCount = todos.length - completedCount;
 
     if (todos.length) {
@@ -66,8 +66,8 @@ export default class MainSection extends Component {
   }
 
   render() {
-    const { todos, actions } = this.props;
-    const { filter } = this.state;
+    const {todos, actions} = this.props;
+    const {filter} = this.state;
 
     const filteredTodos = todos.filter(TODO_FILTERS[filter]);
     const completedCount = todos.reduce(

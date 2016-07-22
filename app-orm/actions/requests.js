@@ -1,9 +1,13 @@
 import * as Types from '../constants/ActionTypes';
 
-export function addRequest(request) {
-  return {type: Types.ADD_REQUEST, request};
+export function addDomain(domain) {
+  return {type: Types.ADD_DOMAIN, domain};
 }
 
-export function clearRequests() {
-  return {type: Types.CLEAR_REQUESTS};
+export function deleteDomain(domain) {
+  return {type: Types.DELETE_DOMAIN, domain};
+}
+
+export function clearDomains() {
+  return {type: Types.CLEAR_DOMAINS};
 }

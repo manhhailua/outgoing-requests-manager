@@ -1,8 +1,19 @@
+/**
+ * Limit length of string
+ * 
+ * @param length
+ * @returns {*}
+ */
 String.prototype.truncate = function (length) {
   if (this.length <= length) return this;
   return this.toString().substring(0, length) + '...';
 };
 
+/**
+ * Extract full domain from url
+ * 
+ * @returns {*}
+ */
 String.prototype.extractDomain = function () {
   let domain;
 
@@ -17,4 +28,18 @@ String.prototype.extractDomain = function () {
   domain = domain.split(':')[0];
 
   return domain;
+};
+
+/**
+ * Extract real domain from subdomain
+ * 
+ * @returns {*}
+ */
+String.prototype.extractRealDomain = function () {
+  // Check if domain is valid
+  if (this.indexOf('.') === -1 || this.indexOf('.') === this.length - 1) return false;
+  
+  let fullParts = this.split('.');
+  let length = fullParts.length;
+  return `${fullParts[length - 2]}.${fullParts[length - 1]}`;
 };

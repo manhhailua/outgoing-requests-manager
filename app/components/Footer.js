@@ -1,6 +1,6 @@
-import React, { PropTypes, Component } from 'react';
+import React, {PropTypes, Component} from 'react';
 import classnames from 'classnames';
-import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters';
+import {SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE} from '../constants/TodoFilters';
 import style from './Footer.css';
 
 const FILTERS = [SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED];
@@ -34,7 +34,7 @@ export default class Footer extends Component {
   }
 
   renderTodoCount() {
-    const { activeCount } = this.props;
+    const {activeCount} = this.props;
     const itemWord = activeCount === 1 ? 'item' : 'items';
 
     return (
@@ -46,12 +46,12 @@ export default class Footer extends Component {
 
   renderFilterLink(filter, handler) {
     const title = FILTER_TITLES[filter];
-    const { filter: selectedFilter } = this.props;
+    const {filter: selectedFilter} = this.props;
 
     return (
       <a
-        className={classnames({ selected: filter === selectedFilter })}
-        style={{ cursor: 'hand' }}
+        className={classnames({selected: filter === selectedFilter})}
+        style={{cursor: 'hand'}}
         onClick={handler}
       >
         {title}
@@ -60,7 +60,7 @@ export default class Footer extends Component {
   }
 
   renderClearButton() {
-    const { completedCount, onClearCompleted } = this.props;
+    const {completedCount, onClearCompleted} = this.props;
     if (completedCount > 0) {
       return (
         <button
