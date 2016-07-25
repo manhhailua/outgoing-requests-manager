@@ -1,11 +1,11 @@
 import * as Types from '../constants/ActionTypes';
 
 export function addDomain(domain) {
-  return {type: Types.ADD_DOMAIN, domain};
+  return {type: Types.ADD_DOMAIN, domain: domain};
 }
 
-export function deleteDomain(domain) {
-  return {type: Types.DELETE_DOMAIN, domain};
+export function deleteDomain(id) {
+  return {type: Types.DELETE_DOMAIN, id: id};
 }
 
 export function clearDomains() {

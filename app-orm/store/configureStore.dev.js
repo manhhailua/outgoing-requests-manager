@@ -18,5 +18,6 @@ export default function (initialState) {
       store.replaceReducer(nextRootReducer);
     });
   }
+
   return store;
 }

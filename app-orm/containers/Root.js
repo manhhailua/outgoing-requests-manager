@@ -12,11 +12,7 @@ export default class Root extends Component {
     const {store} = this.props;
     return (
       <Provider store={store}>
-        <AppORM
-          pool={this.props.pool}
-          whiteListPool={this.props.whiteListPool}
-          blackListPool={this.props.blackListPool}
-        />
+        <AppORM/>
       </Provider>
     );
   }

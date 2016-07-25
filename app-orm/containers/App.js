@@ -1,25 +1,38 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import * as DomainActions from '../actions/domains';
+
 import 'expose?$!expose?jQuery!jquery';
 import 'bootstrap-loader';
 import '../../chrome/extension/orm.css';
 
 import Controllers from '../components/Controllers/Controllers';
-import RequestsList from '../components/RequestsList/RequestsList';
-import BlackList from '../components/BlackList/BlackList';
+import Filters from '../components/DomainsList/Filters';
 
+@connect(
+  state => ({
+    domains: state.domains
+  }),
+  dispatch => ({
+    actions: bindActionCreators(DomainActions, dispatch)
+  })
+)
 
+export default class AppORM extends Component {
 
-export default class AppORM extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  static propTypes = {
+    domains: PropTypes.array.isRequired,
+    actions: PropTypes.object.isRequired
+  };
 
   render() {
+    const {domains, actions} = this.props;
+
     return (
       <section>
-        <Controllers/>
-        <BlackList pool={this.props.blackListPool}/>
-        {/*<RequestsList pool={this.props.pool}/>*/}
+        <Controllers actions={actions} domains={domains}/>
+        <Filters domains={domains}/>
       </section>
     );
   }
