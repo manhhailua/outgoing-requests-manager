@@ -1,4 +1,14 @@
 .white-listed-domain {
-  margin-right: 3px;
+  margin-right: 4px;
+  margin-bottom: 3px;
   font-size: 12px;
+  display: inline-block;
+}
+
+.remove-domain {
+  cursor: pointer;
+}
+
+.remove-domain:hover {
+  color: #cbe7ff;
 }

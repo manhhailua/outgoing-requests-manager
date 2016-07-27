@@ -9,7 +9,7 @@ const initialState = [
 const actionRouter = {
 
   [ActionTypes.ADD_DOMAIN](state, object) {
-    console.debug('New domain is being added: ' + object.domain);
+    console.debug('New domain is being added: "' + object.domain + '".');
 
     return [{
       id: uuid.v1(),
@@ -18,7 +18,7 @@ const actionRouter = {
   },
 
   [ActionTypes.DELETE_DOMAIN](state, object) {
-    console.debug('Domain with id:' + object.id + ' is being deleted');
+    console.debug('Domain with id:' + object.id + ' is being deleted.');
 
     return state.filter(domain => domain.id !== object.id);
   },

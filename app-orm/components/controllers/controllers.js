@@ -20,7 +20,7 @@ export default class Controllers extends Component {
       <div className={style['controllers']}>
         <div className={classNames('row', style['white-list-input'])}>
           <div className="col-lg-12">
-            <WhiteListInput onSave={actions.addDomain}/>
+            <WhiteListInput onSave={actions.addDomain} onClear={actions.clearDomains}/>
           </div>
         </div>
 

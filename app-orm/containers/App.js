@@ -8,7 +8,7 @@ import 'bootstrap-loader';
 import '../../chrome/extension/orm.css';
 
 import Controllers from '../components/Controllers/Controllers';
-import Filters from '../components/DomainsList/Filters';
+import Filters from '../components/Filters/Filters';
 
 @connect(
   state => ({
@@ -21,18 +21,13 @@ import Filters from '../components/DomainsList/Filters';
 
 export default class AppORM extends Component {
 
-  static propTypes = {
-    domains: PropTypes.array.isRequired,
-    actions: PropTypes.object.isRequired
-  };
-
   render() {
     const {domains, actions} = this.props;
 
     return (
       <section>
         <Controllers actions={actions} domains={domains}/>
-        <Filters domains={domains}/>
+        <Filters actions={actions} domains={domains}/>
       </section>
     );
   }

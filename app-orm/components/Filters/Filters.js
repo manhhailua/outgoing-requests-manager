@@ -1,21 +1,19 @@
 import React, {Component, PropTypes} from 'react';
-import uuid from 'node-uuid';
 import * as _ from 'lodash';
 import URI from 'urijs';
+import classNames from 'classnames';
 
 import style from './Filters.css';
 
-export default class Filters extends React.Component {
+export default class Filters extends Component {
 
   static propTypes = {
+    actions: PropTypes.object.isRequired,
     domains: PropTypes.array.isRequired
   };
 
   constructor(props, context) {
     super(props, context);
-
-    // Create "this" alias
-    let self = this;
 
     // Init state
     this.state = {
@@ -23,6 +21,11 @@ export default class Filters extends React.Component {
       whiteListPool: [],
       blackListPool: []
     };
+  }
+
+  componentDidMount() {
+    // Create "this" alias
+    let self = this;
 
     // Detect if current window is refreshed
     chrome.devtools.network.onNavigated.addListener(function (url) {
@@ -38,7 +41,6 @@ export default class Filters extends React.Component {
     chrome.devtools.network.onRequestFinished.addListener(function (request) {
       self.setState(function (previousState, currentProps) {
         let uri = URI(request.request.url);
-        let hostname = uri.hostname();
         let domain = uri.domain();
 
         // Check if current domain from request is white listed
@@ -84,13 +86,23 @@ export default class Filters extends React.Component {
     });
   }
 
+  _clickToWhiteList(event, domain) {
+    this.props.actions.addDomain(domain);
+  }
+
   _renderFilteredList() {
-    let filteredRequests = [];
+    let filteredRequestsComponents = [];
 
     for (let domain in this.state.blackListPool) {
-      if (domain) { // Reject response from cache
-        filteredRequests.push(
+      if (domain) { // Reject response from cache (if not like a domain pattern)
+        filteredRequestsComponents.push(
           <tr key={domain}>
+            <td className={style['action-container']}>
+              <span className={classNames('label label-danger', style['click-to-white-list'])}
+                    onClick={ event => this._clickToWhiteList(event, domain) }>
+                <span className="glyphicon glyphicon-fire" aria-hidden="true"></span>
+              </span>
+            </td>
             <td>{domain}</td>
             <td>{this.state.blackListPool[domain].length}</td>
           </tr>
@@ -98,7 +110,7 @@ export default class Filters extends React.Component {
       }
     }
 
-    return filteredRequests;
+    return filteredRequestsComponents;
   }
 
   render() {
@@ -107,6 +119,7 @@ export default class Filters extends React.Component {
         <table className="table table-striped">
           <tbody>
           <tr>
+            <th>&nbsp;</th>
             <th>Not White Listed</th>
             <th>Number of requests</th>
           </tr>

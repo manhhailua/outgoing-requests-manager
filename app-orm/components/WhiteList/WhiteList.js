@@ -9,25 +9,21 @@ export default class WhiteList extends React.Component {
     onDelete: PropTypes.func.isRequired
   };
 
-  constructor(props, context) {
-    super(props, context);
-  }
-
-  handleDelete(event) {
+  _handleDelete(event) {
     this.props.onDelete(event.target.id);
   }
 
   render() {
-    const {domains, onDelete} = this.props;
+    const {domains} = this.props;
 
     return (
       <div className="panel panel-default">
         <div className="panel-body">
           {domains.map(domain =>
             <div key={domain.id}
-                 className={classNames("label", "label-primary", style["white-listed-domain"])}>{domain.domain}&nbsp;
-              <span id={domain.id} className="glyphicon glyphicon-remove" aria-hidden="true"
-                    onClick={ event => this.handleDelete(event) }></span>
+                 className={classNames('label label-primary', style['white-listed-domain'])}>{domain.domain}&nbsp;
+              <span id={domain.id} className={classNames('glyphicon glyphicon-remove', style['remove-domain'])}
+                    aria-hidden="true" onClick={ event => this._handleDelete(event) }></span>
             </div>
           )}
         </div>
