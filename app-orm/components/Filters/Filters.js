@@ -19,7 +19,8 @@ export default class Filters extends Component {
     this.state = {
       pool: [],
       whiteListPool: [],
-      blackListPool: []
+      blackListPool: [],
+      testPool: {}
     };
   }
 
@@ -31,9 +32,7 @@ export default class Filters extends Component {
     chrome.devtools.network.onNavigated.addListener(function (url) {
       // Reset pool when page was reloaded/refreshed
       self.setState({
-        pool: [],
-        whiteListPool: {},
-        blackListPool: {}
+        pool: {}
       });
     });
 
@@ -43,69 +42,48 @@ export default class Filters extends Component {
         let uri = URI(request.request.url);
         let domain = uri.domain();
 
-        // Check if current domain from request is white listed
-        function _isWhiteListed() {
-          return _.isObject(_.find(currentProps.domains, object => {
-            return object.domain === domain;
-          }));
+        if (!previousState.pool.hasOwnProperty(domain)) { // Check if existed
+          previousState.pool[domain] = [];
         }
 
-        // Create new object:whiteListPool
-        function nextWhiteListPool() {
-          if (!previousState.whiteListPool.hasOwnProperty(domain) && _isWhiteListed(domain)) { // Check if existed
-            previousState.whiteListPool[domain] = [];
-          }
-
-          if (_isWhiteListed(domain)) {
-            previousState.whiteListPool[domain].push(request);
-          }
-
-          return previousState.whiteListPool;
-        }
-
-        // Create new object:backListPool
-        function nextBlackListPool() {
-          if (!previousState.blackListPool.hasOwnProperty(domain) && !_isWhiteListed(domain)) { // Check if existed
-            previousState.blackListPool[domain] = [];
-          }
-
-          if (!_isWhiteListed(domain)) {
-            previousState.blackListPool[domain].push(request)
-          }
-
-          return previousState.blackListPool;
-        }
+        previousState.pool[domain].push(request);
 
         // New state
         return {
-          pool: [request, ...previousState.pool],
-          whiteListPool: nextWhiteListPool(),
-          blackListPool: nextBlackListPool(),
+          pool: previousState.pool,
         };
       });
     });
   }
 
-  _clickToWhiteList(event, domain) {
+  // Check if current domain from request is white listed
+  _isWhiteListed(domain) {
+    const {domains} = this.props;
+    return _.isObject(_.find(domains, object => {
+      return object.domain === domain;
+    }));
+  }
+
+  _clickToWhiteList(domain) {
     this.props.actions.addDomain(domain);
   }
 
   _renderFilteredList() {
     let filteredRequestsComponents = [];
 
-    for (let domain in this.state.blackListPool) {
-      if (domain) { // Reject response from cache (if not like a domain pattern)
+    for (let domain in this.state.pool) {
+      if (domain && !this._isWhiteListed(domain)) { // Reject response from cache (if not like a domain pattern)
         filteredRequestsComponents.push(
           <tr key={domain}>
             <td className={style['action-container']}>
               <span className={classNames('label label-warning', style['click-to-white-list'])}
-                    onClick={ event => this._clickToWhiteList(event, domain) }
+                    onClick={() => this._clickToWhiteList(domain)}
                     title="Click to add to white list">
                 <span className="glyphicon glyphicon-fire" aria-hidden="true"></span>
               </span>
             </td>
             <td>{domain}</td>
-            <td>{this.state.blackListPool[domain].length}</td>
+            <td>{this.state.pool[domain].length}</td>
           </tr>
         );
       }
