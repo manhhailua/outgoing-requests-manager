@@ -98,8 +98,9 @@ export default class Filters extends Component {
         filteredRequestsComponents.push(
           <tr key={domain}>
             <td className={style['action-container']}>
-              <span className={classNames('label label-danger', style['click-to-white-list'])}
-                    onClick={ event => this._clickToWhiteList(event, domain) }>
+              <span className={classNames('label label-warning', style['click-to-white-list'])}
+                    onClick={ event => this._clickToWhiteList(event, domain) }
+                    title="Click to add to white list">
                 <span className="glyphicon glyphicon-fire" aria-hidden="true"></span>
               </span>
             </td>

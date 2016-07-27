@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 
 import InputDomainNameStyle from './InputDomainName.css';
-import UtilitiesButtonStyle from './UtilitiesButton.css';
+import style from './UtilitiesButton.css';
 
 export default class UtilitiesButton extends Component {
 
